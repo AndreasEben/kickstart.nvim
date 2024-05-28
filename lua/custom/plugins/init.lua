@@ -3,8 +3,25 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  'max397574/better-escape.nvim',
-  config = function()
-    require('better_escape').setup()
-  end,
+  {
+    'max397574/better-escape.nvim',
+    config = function()
+      require('better_escape').setup()
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
+  {
+    'artempyanykh/marksman',
+  },
+  {
+    'David-Kunz/gen.nvim',
+    opts = {
+      display_mode = 'split'
+    }
+  }
 }
