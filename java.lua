@@ -1,5 +1,62 @@
-local config = {
-  cmd = { vim.fn.expand '~/.local/share/nvim/mason/bin/jdtls' },
-  root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
-}
-require('jdtls').start_or_attach(config)
+-- -- -- Function to find the root directory
+-- -- local function find_project_root(fname)
+-- --   local root_files = {'pom.xml', '.git'}
+-- --   -- Find the root based on the markers
+-- --   local root = require('jdtls').setup.find_root(root_files, fname)
+-- --   
+-- --   -- Additional logic: you could add more checks here
+-- --   -- For example, if you want to apply different settings based on the sub-module:
+-- --   -- if root ends with '/module-A' then ... (custom logic for module-A)
+-- --   
+-- --   return root
+-- -- end
+--
+--
+-- -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
+-- local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+-- local workspace_dir = '/home/andreas/projects/virgo_server/' .. project_name
+-- local root_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:h') .. '/siteos.amc.virgo.parent'
+-- print("root_dir detected: " .. root_dir)
+-- local config = {
+--   cmd = {
+--     vim.fn.expand '~/.local/share/nvim/mason/bin/jdtls',
+--     '-data', workspace_dir
+--   },
+--   root_dir = root_dir
+--   -- root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
+--   -- root_dir = require('jdtls.setup').find_root({'pom.xml', '.git'})
+--   -- root_dir = find_project_root,
+--   -- root_markers = {'pom.xml'},
+-- }
+-- require('jdtls').start_or_attach(config)
+--
+--
+--
+--
+-- -- local project_root = '/home/andreas/projects/virgo_server/siteos.amc.virgo.parent'
+-- --
+-- -- local config = {
+-- --   cmd = {
+-- --     'java-lsp.cmd',
+-- --     '-configuration',
+-- --     project_root .. '/.jdtls',
+-- --     '-data',
+-- --     vim.fn.stdpath('data'),
+-- --   },
+-- --   root_dir = require('jdtls.setup').find_root({'pom.xml', '.git'}),
+-- --   settings = {
+-- --     java = {
+-- --       project = {
+-- --         referencedLibraries = vim.list_extend(
+-- --           {},
+-- --           vim.split(
+-- --             vim.fn.globpath('/home/andreas/projects/virgo_server', '**/target/*.jar'),
+-- --             '\n'
+-- --           )
+-- --         )
+-- --       }
+-- --     }
+-- --   }
+-- -- }
+-- --
+-- -- require('jdtls').start_or_attach(config)
