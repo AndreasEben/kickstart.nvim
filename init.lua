@@ -618,10 +618,10 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('java').setup()
-      require('lspconfig').jdtls.setup {
-        cmd = { '/home/andreas/.local/share/nvim/mason/packages/jdtls/bin/jdtls' }
-      }
+      -- require('java').setup()
+      -- require('lspconfig').jdtls.setup {
+      --   cmd = { '/home/andreas/.local/share/nvim/mason/packages/jdtls/bin/jdtls' }
+      -- }
 
       require('mason-lspconfig').setup {
         handlers = {
