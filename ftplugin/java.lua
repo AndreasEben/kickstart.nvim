@@ -1,3 +1,20 @@
+local dap = require('dap')
+dap.configurations.java = {
+  {
+    type = 'java';
+    request = 'attach';
+    name = "Debug (Attach) - Remote";
+    hostName = "127.0.0.1";
+    port = 8000;
+  },
+}
+
+local on_attach = function(client, bufnr)
+  require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+  require('jdtls.dap').setup_dap_main_class_configs()
+  -- Other on_attach configurations...
+end
+
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
@@ -71,9 +88,13 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {}
+    bundles = {
+      vim.fn.glob('/home/andreas/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.0.jar')
+    }
   },
+  ['on_attach'] = on_attach
 }
+
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 require('jdtls').start_or_attach(config)
