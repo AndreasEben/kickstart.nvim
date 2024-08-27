@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -602,6 +602,7 @@ require('lazy').setup({
           },
         },
         marksman = {},
+        jdtls = {}
       }
 
       -- Ensure the servers and tools above are installed
@@ -610,16 +611,16 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      -- require('mason').setup()
-    require("mason").setup {
-        log_level = vim.log.levels.DEBUG
-    }
+      require("mason").setup {
+          -- log_level = vim.log.levels.DEBUG
+      }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'java-debug-adapter'
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

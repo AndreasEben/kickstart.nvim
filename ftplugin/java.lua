@@ -18,7 +18,7 @@ end
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
-local workspace_dir = '/home/andreas/nvim_java_workspaces/' .. project_name
+local workspace_dir = '/home/andreas/.local/share/nvim/workspaces/' .. project_name
 --                                               ^^
 --                                               string concattenation in Lua
 
@@ -29,7 +29,8 @@ local config = {
   cmd = {
 
     -- 💀
-    'java', -- or '/path/to/java17_or_newer/bin/java'
+    -- 'java', -- or '/path/to/java17_or_newer/bin/java'
+    '/usr/lib/jvm/java-17-openjdk/bin/java',
             -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -44,7 +45,7 @@ local config = {
 
     -- 💀
     -- '-jar', '/path/to/jdtls_install_location/plugins/org.eclipse.equinox.launcher_VERSION_NUMBER.jar',
-    '-jar', '/home/andreas/.local/share/jdtls/jdt-language-server-1.31.0-202401111522/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar',
+    '-jar', '/home/andreas/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar',
          -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
          -- Must point to the                                                     Change this to
          -- eclipse.jdt.ls installation                                           the actual version
@@ -52,7 +53,7 @@ local config = {
 
     -- 💀
     -- '-configuration', '/path/to/jdtls_install_location/config_SYSTEM',
-    '-configuration', '/home/andreas/.local/share/jdtls/jdt-language-server-1.31.0-202401111522/config_linux',
+    '-configuration', '/home/andreas/.local/share/nvim/mason/packages/jdtls/config_linux',
                     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
                     -- Must point to the                      Change to one of `linux`, `win` or `mac`
                     -- eclipse.jdt.ls installation            Depending on your system.
@@ -77,6 +78,12 @@ local config = {
   -- for a list of options
   settings = {
     java = {
+      -- maybe needed in the future?
+      -- maven = {
+      --   -- userSettings = '/home/andreas/.m2/settings.xml'
+      --   updateSnapshots = true,
+      --   downloadSources = true
+      -- }
     }
   },
 
