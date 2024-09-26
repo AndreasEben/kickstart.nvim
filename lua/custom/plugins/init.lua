@@ -15,9 +15,7 @@ return {
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-  {
-    'artempyanykh/marksman',
-  },
+  { 'artempyanykh/marksman', },
   {
     'David-Kunz/gen.nvim',
     opts = {
@@ -41,12 +39,8 @@ return {
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
-  {
-    'sindrets/diffview.nvim'
-  },
-  {
-    'mfussenegger/nvim-jdtls'
-  },
+  { 'sindrets/diffview.nvim' },
+  { 'mfussenegger/nvim-jdtls' },
   {
     'mikesmithgh/kitty-scrollback.nvim',
     enabled = true,
@@ -58,5 +52,13 @@ return {
     config = function()
       require('kitty-scrollback').setup()
     end,
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    config = function ()
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false
+      }
+    end
   }
 }
