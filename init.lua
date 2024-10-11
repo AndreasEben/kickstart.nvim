@@ -690,6 +690,7 @@ require('lazy').setup({
         html = { 'prettier' },
         json = { 'prettier' },
         yaml = { 'prettier' },
+        xml = { 'xmlformat' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
