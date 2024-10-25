@@ -192,6 +192,13 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
+-- copy full file path of current buffer to system clipboard
+vim.keymap.set('n', '<leader>yp', function()
+    local filename = vim.fn.expand('%:p')
+    vim.fn.setreg('+', filename)
+    print('file path copied to clipboard: ' .. filename)
+end, { noremap = true, silent = true, desc = 'copy full file path of current buffer to system clipboard' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
