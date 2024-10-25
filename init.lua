@@ -618,7 +618,9 @@ require('lazy').setup({
           },
         },
         marksman = {},
-        jdtls = {}
+        jdtls = {},
+        html = {},
+        angularls = {}
       }
 
       -- Ensure the servers and tools above are installed
