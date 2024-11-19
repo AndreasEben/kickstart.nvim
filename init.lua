@@ -620,7 +620,13 @@ require('lazy').setup({
         marksman = {},
         jdtls = {},
         html = {},
-        angularls = {}
+        angularls = {},
+        gradle_ls = {
+          settings = {
+            gradleWrapperEnabled = true
+          }
+        },
+        cssls = {}
       }
 
       -- Ensure the servers and tools above are installed
