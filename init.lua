@@ -669,7 +669,7 @@ require('lazy').setup({
         angularls = {},
         gradle_ls = {
           settings = {
-            gradleWrapperEnabled = true
+            cmd = { '/home/andreas/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' }
           }
         },
         cssls = {}
@@ -839,7 +839,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
           ['<Tab>'] = cmp.mapping.select_next_item(),
           ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -923,10 +923,12 @@ require('lazy').setup({
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      -- require('mini.surround').setup()
+      -- - sr)'  - [S]urround [R]eplce [)] [']
+      require('mini.surround').setup({
+        search_method = 'cover_or_next'
+      })
 
-      -- Simple and easy statusline.
+      -- Simple nd easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'

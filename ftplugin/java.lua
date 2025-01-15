@@ -5,7 +5,7 @@ dap.configurations.java = {
     request = 'attach';
     name = "Debug (Attach) - Remote";
     hostName = "127.0.0.1";
-    port = 8000;
+    port = 5005;
   },
 }
 
@@ -96,7 +96,7 @@ local config = {
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
     bundles = {
-      vim.fn.glob('/home/andreas/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.0.jar')
+      vim.fn.glob('/home/andreas/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.1.jar')
     }
   },
   ['on_attach'] = on_attach
