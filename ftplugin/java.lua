@@ -30,7 +30,7 @@ local config = {
 
     -- 💀
     -- 'java', -- or '/path/to/java17_or_newer/bin/java'
-    '/usr/lib/jvm/java-17-openjdk/bin/java',
+    '/usr/lib/jvm/java-21-openjdk/bin/java',
             -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -78,12 +78,19 @@ local config = {
   -- for a list of options
   settings = {
     java = {
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-17",
+            path = "/usr/lib/jvm/java-17-openjdk",
+          }
+        }
+      }     -- }
       -- maybe needed in the future?
       -- maven = {
       --   -- userSettings = '/home/andreas/.m2/settings.xml'
       --   updateSnapshots = true,
       --   downloadSources = true
-      -- }
     }
   },
 
