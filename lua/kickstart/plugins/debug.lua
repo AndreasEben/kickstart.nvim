@@ -19,37 +19,51 @@ return {
 
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
-    'mfussenegger/nvim-jdtls'
+    'mfussenegger/nvim-jdtls',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
-      '<F5>',
+      '<F1>',
       function()
         require('dap').continue()
       end,
       desc = 'Debug: Start/Continue',
     },
     {
-      '<F1>',
+      '<F2>',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F2>',
+      '<F3>',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F3>',
+      '<F4>',
       function()
         require('dap').step_out()
       end,
       desc = 'Debug: Step Out',
+    },
+    {
+      '<F5>',
+      function()
+        require('dap').close()
+      end,
+      desc = 'Debug: Close',
+    },
+    {
+      '<F6>',
+      function()
+        require('dap').disconnect()
+      end,
+      desc = 'Debug: Disconnect',
     },
     {
       '<leader>b',
@@ -78,18 +92,6 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
-    -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<F1>', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<F2>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<F3>', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<F4>', dap.step_out, { desc = 'Debug: Step Out' })
-    vim.keymap.set('n', '<F5>', dap.close, { desc = 'Debug: Close' })
-    vim.keymap.set('n', '<F6>', dap.disconnect, { desc = 'Debug: Disconnect' })
-    vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-    vim.keymap.set('n', '<leader>B', function()
-      dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    end, { desc = 'Debug: Set Breakpoint' })
-
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup()
@@ -109,6 +111,5 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
   end,
 }

@@ -10,65 +10,66 @@ return {
     end,
   },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'nvm use 20 && cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown', 'puml' }
+      vim.g.mkdp_port = 4300
+      vim.g.mkdp_browser = 'none'
+    end,
+    ft = { 'markdown' },
   },
-  { 'artempyanykh/marksman', },
-  {
-    'David-Kunz/gen.nvim',
-    opts = {
-      display_mode = 'split'
-    }
-  },
+  { 'artempyanykh/marksman' },
   {
     'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {}
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {},
   },
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
+    'folke/flash.nvim',
+    event = 'VeryLazy',
     opts = {},
     keys = {
-      { "S", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      {
+        'S',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').jump()
+        end,
+        desc = 'Flash',
+      },
     },
   },
   { 'sindrets/diffview.nvim' },
-  { 'mfussenegger/nvim-jdtls' },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function ()
+    config = function()
       require('ts_context_commentstring').setup {
-        enable_autocmd = false
+        enable_autocmd = false,
       }
-    end
+    end,
   },
   {
     'chentoast/marks.nvim',
     event = 'VeryLazy',
-    config = function ()
+    config = function()
       require('marks').setup()
-    end
+    end,
   },
   {
-    "debugloop/telescope-undo.nvim",
+    'debugloop/telescope-undo.nvim',
     dependencies = { -- note how they're inverted to above example
       {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
       },
     },
     keys = {
       { -- lazy style key map
-        "<leader>u",
-        "<cmd>Telescope undo<cr>",
-        desc = "undo history",
+        '<leader>u',
+        '<cmd>Telescope undo<cr>',
+        desc = 'undo history',
       },
     },
     opts = {
@@ -84,8 +85,21 @@ return {
       -- Calling telescope's setup from multiple specs does not hurt, it will happily merge the
       -- configs for us. We won't use data, as everything is in it's own namespace (telescope
       -- defaults, as well as each extension).
-      require("telescope").setup(opts)
-      require("telescope").load_extension("undo")
+      require('telescope').setup(opts)
+      require('telescope').load_extension 'undo'
     end,
   },
+  -- PlantUML previewer
+  {
+    'weirongxu/plantuml-previewer.vim',
+    ft = { 'plantuml', 'puml', 'uml' }, -- optional: load only for PlantUML files
+    dependencies = {
+      'tyru/open-browser.vim',
+      'aklt/plantuml-syntax',
+    },
+  },
+  -- PlantUML syntax highlighting
+  { 'aklt/plantuml-syntax', ft = { 'plantuml', 'puml', 'uml' } },
+  -- Open browser support
+  { 'tyru/open-browser.vim', lazy = true },
 }

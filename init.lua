@@ -117,6 +117,17 @@ vim.o.showmode = false
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -199,13 +210,13 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
 -- copy full file path of current buffer to system clipboard
 vim.keymap.set('n', '<leader>yp', function()
-    local filename = vim.fn.expand('%:p')
-    vim.fn.setreg('+', filename)
-    print('file path copied to clipboard: ' .. filename)
+  local filename = vim.fn.expand '%:p'
+  vim.fn.setreg('+', filename)
+  print('file path copied to clipboard: ' .. filename)
 end, { noremap = true, silent = true, desc = 'copy full file path of current buffer to system clipboard' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
@@ -232,9 +243,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- override the Neovim internal get_option function which is called whenever the commentstring is requested
 local get_option = vim.filetype.get_option
 vim.filetype.get_option = function(filetype, option)
-  return option == "commentstring"
-    and require("ts_context_commentstring.internal").calculate_commentstring()
-    or get_option(filetype, option)
+  return option == 'commentstring' and require('ts_context_commentstring.internal').calculate_commentstring() or get_option(filetype, option)
 end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -263,9 +272,15 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
+local function is_dap_buffer()
+  return require('cmp_dap').is_dap_buffer()
+end
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+    opts = {},
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -398,7 +413,7 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' }
+      { 'nvim-telescope/telescope-live-grep-args.nvim' },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -438,8 +453,8 @@ require('lazy').setup({
           },
         },
         defaults = {
-          layout_strategy = 'vertical'
-        }
+          layout_strategy = 'vertical',
+        },
       }
 
       -- Enable Telescope extensions if they are installed
@@ -455,7 +470,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       -- vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set("n", "<leader>sg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sg', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -728,10 +743,10 @@ require('lazy').setup({
         angularls = {},
         gradle_ls = {
           settings = {
-            cmd = { '/home/andreas/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' }
-          }
+            cmd = { '/home/andreas/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' },
+          },
         },
-        cssls = {}
+        cssls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -750,11 +765,14 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'java-debug-adapter'
+        'java-debug-adapter',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        automatic_enable = {
+          exclude = { 'jdtls' },
+        },
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
@@ -842,6 +860,8 @@ require('lazy').setup({
           return 'make install_jsregexp'
         end)(),
         dependencies = {
+          'saghen/blink.compat',
+          'rcarriga/cmp-dap',
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
@@ -893,22 +913,33 @@ require('lazy').setup({
         nerd_font_variant = 'mono',
       },
 
-          -- TODO: from before update -> still needed?
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          -- ['<CR>'] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
-          -- ['<Tab>'] = cmp.mapping.select_next_item(),
-          -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      -- TODO: from before update -> still needed?
+      -- If you prefer more traditional completion keymaps,
+      -- you can uncomment the following lines
+      -- ['<CR>'] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
+      -- ['<Tab>'] = cmp.mapping.select_next_item(),
+      -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
-
+      enabled = function()
+        return vim.bo.buftype ~= 'prompt' or is_dap_buffer()
+      end,
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = function()
+          if vim.bo.filetype == 'lua' then
+            return { 'lazydev', 'snippets', 'buffer' }
+          elseif is_dap_buffer() then
+            return { 'dap' }
+          else
+            return { 'lsp', 'path', 'snippets', 'buffer' }
+          end
+        end,
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          dap = { name = 'dap', module = 'blink.compat.source', enabled = true },
         },
       },
 
@@ -964,9 +995,9 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplce [)] [']
-      require('mini.surround').setup({
-        search_method = 'cover_or_next'
-      })
+      require('mini.surround').setup {
+        search_method = 'cover_or_next',
+      }
 
       -- Simple nd easy statusline.
       --  You could remove this setup call if you don't like it,
