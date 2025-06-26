@@ -743,7 +743,7 @@ require('lazy').setup({
         angularls = {},
         gradle_ls = {
           settings = {
-            cmd = { '/home/andreas/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' },
+            cmd = { '/home/sxae55/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' },
           },
         },
         cssls = {},

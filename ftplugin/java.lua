@@ -20,7 +20,7 @@ local on_attach = function(client, bufnr)
   -- Other on_attach configurations...
 end
 
-local workspace_dir = '/home/andreas/.local/share/nvim/workspaces/' .. root
+local workspace_dir = '/home/sxae55/.local/share/nvim/workspaces/' .. root
 --                                               ^^
 --                                               string concattenation in Lua
 
@@ -50,7 +50,7 @@ local config = {
     -- 💀
     -- '-jar', '/path/to/jdtls_install_location/plugins/org.eclipse.equinox.launcher_VERSION_NUMBER.jar',
     '-jar',
-    '/home/andreas/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar',
+    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar',
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
     -- eclipse.jdt.ls installation                                           the actual version
@@ -58,7 +58,7 @@ local config = {
     -- 💀
     -- '-configuration', '/path/to/jdtls_install_location/config_SYSTEM',
     '-configuration',
-    '/home/andreas/.local/share/nvim/mason/packages/jdtls/config_linux',
+    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/config_linux',
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
     -- Must point to the                      Change to one of `linux`, `win` or `mac`
     -- eclipse.jdt.ls installation            Depending on your system.
@@ -97,7 +97,7 @@ local config = {
       }, -- }
       -- maybe needed in the future?
       -- maven = {
-      --   -- userSettings = '/home/andreas/.m2/settings.xml'
+      --   -- userSettings = '/home/sxae55/.m2/settings.xml'
       --   updateSnapshots = true,
       --   downloadSources = true
     },
@@ -112,7 +112,7 @@ local config = {
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
     bundles = {
-      vim.fn.glob '/home/andreas/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.1.jar',
+      vim.fn.glob '/home/sxae55/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.1.jar',
     },
   },
   ['on_attach'] = on_attach,
