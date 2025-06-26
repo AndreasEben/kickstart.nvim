@@ -87,6 +87,14 @@ return {
       end,
       desc = 'Debug: See last session result.',
     },
+    {
+      '<leader>de',
+      function()
+        require('dapui').eval()
+      end,
+      mode = { 'n', 'v' },
+      { desc = 'Debug: Evaluate Expression' },
+    },
   },
   config = function()
     local dap = require 'dap'
