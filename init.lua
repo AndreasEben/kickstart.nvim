@@ -822,7 +822,15 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        java = { 'prettier' },
+        -- use jdtls lsp if eclipse style code_conventions.xml found in project root
+        -- !! as of now this is only a trigger, doesnt actually use this file, jdtls looks for this file in ~/.config
+        java = function()
+          local eclipse = vim.fs.root(0, 'code_conventions.xml')
+          if eclipse then
+            return { 'lsp' }
+          end
+          return { 'prettier' }
+        end,
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
