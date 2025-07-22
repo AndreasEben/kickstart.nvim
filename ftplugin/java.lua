@@ -2,16 +2,23 @@
 local root = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
 local dap = require 'dap'
+
+local function create_java_attach_config(name, port)
+  return {
+    type = "java",
+    request = "attach",
+    name = name,
+    hostName = "127.0.0.1",
+    port = port,
+    projectName = function()
+      return os.getenv("JAVA_PROJECT_NAME") or vim.fn.input("Project Name: ")
+    end,
+  }
+end
+
 dap.configurations.java = {
-  {
-    type = 'java',
-    request = 'attach',
-    name = 'Debug (Attach) - Remote',
-    hostName = '127.0.0.1',
-    -- port = 5005;
-    port = 8000,
-    projectName = 'siteos-flos-konfigurator-webapp',
-  },
+  create_java_attach_config("Debug (Attach) - Remote 8000", 8000),
+  create_java_attach_config("Debug (Attach) - Remote 8100", 8100),
 }
 
 local on_attach = function(client, bufnr)
