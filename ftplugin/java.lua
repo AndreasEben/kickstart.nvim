@@ -105,7 +105,7 @@ local config = {
       format = {
         enabled = true,
         settings = {
-          url = 'file://home/sxae55/.config/code_conventions.xml',
+          url = '/home/sxae55/.config/code_conventions.xml',
           profile = "My Java Conventions"
         }
       }
