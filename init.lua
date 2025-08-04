@@ -743,7 +743,6 @@ require('lazy').setup({
         marksman = {},
         jdtls = {},
         html = {},
-        angularls = {},
         gradle_ls = {
           settings = {
             cmd = { '/home/sxae55/.local/share/nvim/mason/packages/gradle-language-server/gradle-language-server' },
@@ -944,6 +943,8 @@ require('lazy').setup({
             return { 'lazydev', 'snippets', 'buffer' }
           elseif is_dap_buffer() then
             return { 'dap' }
+          elseif vim.bo.filetype == 'typescriptreact' or vim.bo.filetype == 'html' then
+            return { 'lsp', 'path', 'snippets', 'buffer', 'html-css' }
           else
             return { 'lsp', 'path', 'snippets', 'buffer' }
           end
@@ -951,6 +952,10 @@ require('lazy').setup({
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           dap = { name = 'dap', module = 'blink.compat.source', enabled = true },
+          ['html-css'] = {
+            name = 'html-css',
+            module = 'blink.compat.source',
+          },
         },
       },
 
@@ -982,8 +987,8 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-night'
-      vim.cmd.colorscheme 'dracula'
+      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'dracula'
     end,
   },
 
