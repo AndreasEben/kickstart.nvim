@@ -19,6 +19,7 @@ return {
             '-stdio',
             '-analyzers',
             vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjava.jar',
+            vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjs.jar',
           },
           settings = {
             sonarlint = {
@@ -53,6 +54,8 @@ return {
         },
         filetypes = {
           'java',
+          'typescript',
+          'typescriptreact'
         },
       }
     end,
