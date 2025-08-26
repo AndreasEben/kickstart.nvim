@@ -102,13 +102,6 @@ local config = {
           },
         },
       }, -- }
-      format = {
-        enabled = true,
-        settings = {
-          url = '/home/sxae55/.config/code_conventions.xml',
-          profile = "My Java Conventions"
-        }
-      }
       -- maybe needed in the future?
       -- maven = {
       --   -- userSettings = '/home/sxae55/.m2/settings.xml'
