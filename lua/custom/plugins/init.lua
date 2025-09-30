@@ -74,4 +74,23 @@ return {
     priority = 1000,
     opts = {},
   },
+  {
+    'ThePrimeagen/harpoon',
+    config = function()
+      require('harpoon').setup {
+        menu = {
+          width = vim.api.nvim_win_get_width(0) - 4,
+        },
+      }
+      vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file, { desc = 'Add file to harpoon list' })
+      vim.keymap.set('n', '<leader>l', require('harpoon.ui').toggle_quick_menu, { desc = 'Toggle harpoon menu' })
+      vim.keymap.set('n', '<leader>n', require('harpoon.ui').nav_next, { desc = 'Navigate to [n]ext harpoon mark' })
+      vim.keymap.set('n', '<leader>p', require('harpoon.ui').nav_prev, { desc = 'Navigate to [p]revious harpoon mark' })
+      for i = 1, 9 do
+        vim.keymap.set('n', '<leader>' .. i, function()
+          require('harpoon.ui').nav_file(i)
+        end, { desc = 'Go to harpoon file ' .. i })
+      end
+    end,
+  },
 }
