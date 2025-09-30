@@ -72,7 +72,12 @@ return {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
-    opts = {},
+    opts = {
+      style = 'moon',
+      on_colors = function(colors)
+        colors.fg_gutter = '#505878'
+      end
+    },
   },
   {
     'ThePrimeagen/harpoon',
