@@ -749,6 +749,7 @@ require('lazy').setup({
           },
         },
         cssls = {},
+        eslint = {},
       }
 
       -- Ensure the servers and tools above are installed
