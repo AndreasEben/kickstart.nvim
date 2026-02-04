@@ -468,7 +468,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sa', function()
-        builtin.find_files { hidden = true, no_ignore = true }
+        builtin.find_files { hidden = true, no_ignore = true, file_ignore_patterns = { 'node_modules/.*', '^node_modules/' } }
       end, { desc = '[S]earch [A]ll files (incl. gitignored)' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
