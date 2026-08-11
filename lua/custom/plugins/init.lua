@@ -20,7 +20,6 @@ return {
     end,
     ft = { 'markdown' },
   },
-  { 'artempyanykh/marksman' },
   {
     'stevearc/oil.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -41,7 +40,6 @@ return {
       },
     },
   },
-  { 'sindrets/diffview.nvim' },
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
     config = function()
@@ -49,35 +47,6 @@ return {
         enable_autocmd = false,
       }
     end,
-  },
-  {
-    'chentoast/marks.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('marks').setup()
-    end,
-  },
-  {
-    'weirongxu/plantuml-previewer.vim',
-    ft = { 'plantuml', 'puml', 'uml' }, -- optional: load only for PlantUML files
-    dependencies = {
-      'tyru/open-browser.vim',
-      'aklt/plantuml-syntax',
-    },
-  },
-  { 'aklt/plantuml-syntax', ft = { 'plantuml', 'puml', 'uml' } },
-  -- Open browser support
-  { 'tyru/open-browser.vim', lazy = true },
-  {
-    'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {
-      style = 'moon',
-      on_colors = function(colors)
-        colors.fg_gutter = '#505878'
-      end
-    },
   },
   {
     'ThePrimeagen/harpoon',

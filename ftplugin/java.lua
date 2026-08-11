@@ -10,15 +10,16 @@ local function create_java_attach_config(name, port)
     name = name,
     hostName = "127.0.0.1",
     port = port,
-    projectName = function()
-      return os.getenv("JAVA_PROJECT_NAME") or vim.fn.input("Project Name: ")
-    end,
+    -- projectName = function()
+    --   return os.getenv("JAVA_PROJECT_NAME") or vim.fn.input("Project Name: ")
+    -- end,
   }
 end
 
 dap.configurations.java = {
   create_java_attach_config("Debug (Attach) - Remote 8000", 8000),
   create_java_attach_config("Debug (Attach) - Remote 8100", 8100),
+  create_java_attach_config("Debug (Attach) - Remote 5005", 5005),
 }
 
 local on_attach = function(client, bufnr)
@@ -39,7 +40,7 @@ local config = {
 
     -- 💀
     -- 'java', -- or '/path/to/java17_or_newer/bin/java'
-    '/usr/lib/jvm/java-21-openjdk/bin/java',
+    '/usr/lib/jvm/java-25-openjdk/bin/java',
     -- depends on if `java` is in your $PATH env variable and if it points to the right version.
 
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
@@ -94,11 +95,11 @@ local config = {
         runtimes = {
           -- {
           --   name = "JavaSE-17",
-          --   path = "/usr/lib/jvm/java-17-openjdk",
+          --   path = "/usr/lib/jvm/java-17-temurin-jdk",
           -- },
           {
-            name = 'JavaSE-21',
-            path = '/usr/lib/jvm/java-21-openjdk',
+            name = 'JavaSE-25',
+            path = '/usr/lib/jvm/java-25-openjdk',
           },
         },
       }, -- }

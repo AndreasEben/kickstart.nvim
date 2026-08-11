@@ -20,6 +20,8 @@ return {
             '-analyzers',
             vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjava.jar',
             vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjs.jar',
+            vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarhtml.jar',
+            vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarxml.jar',
           },
           settings = {
             sonarlint = {
@@ -41,21 +43,24 @@ return {
             --
             -- In the future a integration with https://github.com/folke/neoconf.nvim or some similar
             -- plugin, might be worthwhile.
-            local project_root_and_ids = {
-              ['/home/sxae55/projects/mcop2/mcop2-main/'] = 'mcop2-main',
-              -- … further mappings …
-            }
+            -- local project_root_and_ids = {
+            --   ['/home/sxae55/projects/mcop2/mcop2-main/'] = 'mcop2-main',
+            --   -- … further mappings …
+            -- }
 
             config.settings.sonarlint.connectedMode.project = {
               connectionId = 'sonar',
-              projectKey = project_root_and_ids[params.rootPath],
+              -- projectKey = project_root_and_ids[params.rootPath],
+              projectKey = 'entole',
             }
           end,
         },
         filetypes = {
           'java',
           'typescript',
-          'typescriptreact'
+          'typescriptreact',
+          'html',
+          'xml'
         },
       }
     end,
