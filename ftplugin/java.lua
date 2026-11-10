@@ -58,7 +58,7 @@ local config = {
     -- 💀
     -- '-jar', '/path/to/jdtls_install_location/plugins/org.eclipse.equinox.launcher_VERSION_NUMBER.jar',
     '-jar',
-    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.200.v20260619-2039.jar',
+    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.8.0.v20260804-1928.jar',
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
     -- eclipse.jdt.ls installation                                           the actual version
@@ -103,6 +103,14 @@ local config = {
           },
         },
       }, -- }
+      compile = {
+        nullAnalysis = {
+          mode = "automatic",
+          nullable = { "org.jspecify.annotations.Nullable" },
+          nonnull = { "org.jspecify.annotations.NonNull" },
+          nonnullbydefault = { "org.jspecify.annotations.NullMarked" },
+        },
+      }
       -- maybe needed in the future?
       -- maven = {
       --   -- userSettings = '/home/sxae55/.m2/settings.xml'
