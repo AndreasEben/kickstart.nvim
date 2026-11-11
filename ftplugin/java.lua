@@ -134,6 +134,20 @@ local config = {
     bundles = vim.fn.glob(mason_packages .. '/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar', true, true),
   },
   ['on_attach'] = on_attach,
+  -- jdtls also reports diagnostics for files in build output dirs (bin/, build/,
+  -- target/), e.g. "type already defined" for JPA metamodel classes that exist in
+  -- both bin/generated-sources and build/generated. That's noise for the
+  -- workspace-diagnostics picker, so swallow it.
+  handlers = {
+    -- NOTE: Lua patterns have no `|` alternation, hence the plain :find calls
+    ['textDocument/publishDiagnostics'] = function(err, params, ctx)
+      local path = vim.uri_to_fname(params.uri)
+      if path:find('/bin/', 1, true) or path:find('/build/', 1, true) or path:find('/target/', 1, true) then
+        return
+      end
+      return vim.lsp.diagnostic.on_publish_diagnostics(err, params, ctx)
+    end,
+  },
 }
 
 -- This starts a new client & server,
