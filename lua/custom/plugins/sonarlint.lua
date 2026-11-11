@@ -1,4 +1,5 @@
 vim.pack.add { 'https://gitlab.com/schrieveslaach/sonarlint.nvim' }
+local analyzers_dir = vim.fn.join({ vim.fn.stdpath 'data', 'mason', 'share', 'sonarlint-analyzers' }, '/')
 require('sonarlint').setup {
   connected = {
     get_credentials = function(client_id, url)
@@ -10,10 +11,10 @@ require('sonarlint').setup {
       'sonarlint-language-server',
       '-stdio',
       '-analyzers',
-      vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjava.jar',
-      vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjs.jar',
-      vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarhtml.jar',
-      vim.fn.expand '/home/sxae55/.local/share/nvim/mason/share/sonarlint-analyzers/sonarxml.jar',
+      analyzers_dir .. '/sonarjava.jar',
+      analyzers_dir .. '/sonarjs.jar',
+      analyzers_dir .. '/sonarhtml.jar',
+      analyzers_dir .. '/sonarxml.jar',
     },
     settings = {
       sonarlint = {

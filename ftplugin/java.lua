@@ -28,9 +28,17 @@ local on_attach = function(client, bufnr)
   -- Other on_attach configurations...
 end
 
-local workspace_dir = '/home/sxae55/.local/share/nvim/workspaces/' .. root
---                                               ^^
---                                               string concattenation in Lua
+local mason_packages = vim.fn.join({ vim.fn.stdpath 'data', 'mason', 'packages' }, '/')
+
+local workspace_dir = vim.fn.join({ vim.fn.stdpath 'data', 'workspaces', root }, '/')
+--                                                                  ^^
+--                                                                  string concatenation in Lua
+
+-- jdtls ships a versioned launcher jar; pick the newest one mason has installed
+local launchers = vim.fn.glob(mason_packages .. '/jdtls/plugins/org.eclipse.equinox.launcher_*.jar', true, true)
+assert(#launchers > 0, 'jdtls launcher jar not found, run :MasonInstall jdtls')
+table.sort(launchers)
+local launcher = launchers[#launchers]
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -58,18 +66,14 @@ local config = {
     -- 💀
     -- '-jar', '/path/to/jdtls_install_location/plugins/org.eclipse.equinox.launcher_VERSION_NUMBER.jar',
     '-jar',
-    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.8.0.v20260804-1928.jar',
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
-    -- Must point to the                                                     Change this to
-    -- eclipse.jdt.ls installation                                           the actual version
+    launcher,
+    -- ^^^^^^ resolved above via glob, survives `:MasonUpdate`
 
     -- 💀
     -- '-configuration', '/path/to/jdtls_install_location/config_SYSTEM',
     '-configuration',
-    '/home/sxae55/.local/share/nvim/mason/packages/jdtls/config_linux',
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
-    -- Must point to the                      Change to one of `linux`, `win` or `mac`
-    -- eclipse.jdt.ls installation            Depending on your system.
+    mason_packages .. '/jdtls/config_linux',
+    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ one of `linux`, `win` or `mac`, depending on your system
 
     -- 💀
     -- See `data directory configuration` section in the README
@@ -127,9 +131,7 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {
-      vim.fn.glob '/home/sxae55/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.2.jar',
-    },
+    bundles = vim.fn.glob(mason_packages .. '/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar', true, true),
   },
   ['on_attach'] = on_attach,
 }
