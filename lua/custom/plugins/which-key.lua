@@ -1,0 +1,16 @@
+-- Show pending keybinds
+local gh = require('core.util').gh
+vim.pack.add { gh 'folke/which-key.nvim' }
+require('which-key').setup {
+  -- Delay between pressing a key and opening which-key (milliseconds)
+  delay = 0,
+  icons = { mappings = vim.g.have_nerd_font },
+  -- Document existing key chains
+  spec = {
+    { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
+    { '<leader>f', group = '[F]ind', mode = { 'n' } },
+    { '<leader>t', group = '[T]oggle' },
+    { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+    { 'gr', group = 'LSP Actions', mode = { 'n' } },
+  },
+}
