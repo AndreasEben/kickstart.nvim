@@ -93,10 +93,10 @@ local config = {
     java = {
       configuration = {
         runtimes = {
-          -- {
-          --   name = "JavaSE-17",
-          --   path = "/usr/lib/jvm/java-17-temurin-jdk",
-          -- },
+          {
+            name = "JavaSE-17",
+            path = "/usr/lib/jvm/java-17-temurin-jdk",
+          },
           {
             name = 'JavaSE-25',
             path = '/usr/lib/jvm/java-25-openjdk',

@@ -83,6 +83,10 @@
       "rev": "cc9dd33aade7f20bae414d0cba163bc60d4d4b43",
       "src": "https://github.com/rcarriga/nvim-dap-ui"
     },
+    "nvim-html-css": {
+      "rev": "3f246f6166e75fb8afc1866ce8f1e4cb8d95757a",
+      "src": "https://github.com/Jezda1337/nvim-html-css"
+    },
     "nvim-jdtls": {
       "rev": "6e9d953f0b82bccdb834cfde0e893f3119c22592",
       "src": "https://github.com/mfussenegger/nvim-jdtls"
@@ -115,6 +119,10 @@
     "snacks.nvim": {
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "sonarlint.nvim": {
+      "rev": "acd09b78969ddc965a7ddf59abb9d9eec5ecd94f",
+      "src": "https://gitlab.com/schrieveslaach/sonarlint.nvim"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
