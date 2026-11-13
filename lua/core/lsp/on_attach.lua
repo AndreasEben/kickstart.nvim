@@ -4,10 +4,15 @@ return function(event)
     vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
   end
 
-  -- 0.11 defaults already cover grn, gra, grr, gri, grt, gO and K.
-  -- Only add what isn't built in: gd/gD, which would otherwise be Vim's local search.
-  map('gd', vim.lsp.buf.definition, 'Definition')
-  map('gD', vim.lsp.buf.declaration, 'Declaration')
+  -- 0.11 defaults already cover grn (rename), gra (code action) and K (hover).
+  -- For navigation, override the built-in defaults with the Snacks picker window.
+  local picker = Snacks.picker
+  map('gd', function() picker.lsp_definitions() end, 'Definition')
+  map('gD', function() picker.lsp_declarations() end, 'Declaration')
+  map('grr', function() picker.lsp_references() end, 'References')
+  map('gri', function() picker.lsp_implementations() end, 'Implementation')
+  map('grt', function() picker.lsp_type_definitions() end, 'Type Definition')
+  map('gO', function() picker.lsp_symbols() end, 'Document Symbols')
 
   -- Highlight references under the cursor
   local client = vim.lsp.get_client_by_id(event.data.client_id)
